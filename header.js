@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span>TTW</span> ENTERPRISES
                 </a>
                 <ul class="nav-links">
-                    <li><a href="index.html#audit">Free Audit</a></li>
+                    <li><a href="index.html#audit">Discovery Call</a></li>
                     <li><a href="email-subject-lines.html">Free Guide</a></li>
                     <li><a href="reviews.html">Reviews</a></li>
                     <li><a href="contact.html">Contact</a></li>
