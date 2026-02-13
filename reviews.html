@@ -22,12 +22,12 @@
         .page-header {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 2rem 2rem;
+            padding: 3rem 1.5rem 2rem;
             text-align: center;
         }
 
         .page-header h1 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 7vw, 3rem);
             font-weight: 900;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #c41e3a 100%);
@@ -37,7 +37,7 @@
         }
 
         .page-header p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             color: #d4d4d4;
             max-width: 700px;
             margin: 0 auto;
@@ -46,16 +46,16 @@
         /* Testimonials */
         .testimonials {
             max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 2rem 4rem;
+            margin: 2rem auto;
+            padding: 0 1.5rem 3rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
         .testimonial-card {
             background: rgba(20, 20, 20, 0.8);
-            padding: 1.5rem;
+            padding: 1rem;
             border-radius: 12px;
             border: 1px solid rgba(80, 80, 80, 0.3);
             transition: all 0.3s ease;
@@ -76,21 +76,21 @@
         /* CTA Section */
         .cta-section {
             background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
-            padding: 4rem 2rem;
-            margin: 4rem 0 0;
+            padding: 3rem 1.5rem;
+            margin: 2rem 0 0;
             border-top: 2px solid #c41e3a;
             text-align: center;
         }
 
         .cta-section h2 {
             color: #ffd700;
-            font-size: 2.5rem;
+            font-size: clamp(1.75rem, 6vw, 2.5rem);
             margin-bottom: 1rem;
         }
 
         .cta-section p {
             color: #f5f5f5;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             margin-bottom: 2rem;
             max-width: 700px;
             margin-left: auto;
@@ -101,8 +101,8 @@
             display: inline-block;
             background: #0a0a0a;
             color: #ffffff;
-            padding: 1.25rem 3rem;
-            font-size: 1.25rem;
+            padding: 1rem 2rem;
+            font-size: clamp(1rem, 3vw, 1.25rem);
             font-weight: bold;
             text-decoration: none;
             border-radius: 8px;
@@ -122,9 +122,10 @@
         footer {
             background: #0a0a0a;
             border-top: 2px solid #c41e3a;
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             color: #888;
+            font-size: clamp(0.85rem, 2vw, 1rem);
         }
 
         footer p {
@@ -142,16 +143,28 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2.5rem;
+            .page-header {
+                padding: 2rem 1rem 1.5rem;
             }
 
             .testimonials {
                 grid-template-columns: 1fr;
+                padding: 0 1rem 2rem;
             }
 
-            .cta-section h2 {
-                font-size: 2rem;
+            .cta-section {
+                padding: 2rem 1rem;
+            }
+
+            .cta-button {
+                width: calc(100% - 2rem);
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .testimonial-card {
+                padding: 0.75rem;
             }
         }
     </style>

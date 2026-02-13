@@ -39,14 +39,7 @@
             height: 100%;
             background: 
                 radial-gradient(circle at 20% 50%, rgba(255, 59, 48, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 214, 10, 0.05) 0%, transparent 50%),
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(255, 255, 255, 0.01) 2px,
-                    rgba(255, 255, 255, 0.01) 4px
-                );
+                radial-gradient(circle at 80% 80%, rgba(255, 214, 10, 0.05) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
             animation: subtleShift 20s ease-in-out infinite;
@@ -60,7 +53,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 1.5rem;
             position: relative;
             z-index: 1;
         }
@@ -71,14 +64,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 60px 0;
+            padding: 3rem 0;
             position: relative;
         }
 
         .hero-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            grid-template-columns: 1fr;
+            gap: 3rem;
             align-items: center;
             animation: fadeInUp 0.8s ease-out;
         }
@@ -96,6 +89,7 @@
 
         .hero-text {
             animation: slideInLeft 0.8s ease-out;
+            text-align: center;
         }
 
         @keyframes slideInLeft {
@@ -111,12 +105,12 @@
 
         .hero-text h1 {
             font-family: 'Anton', sans-serif;
-            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-size: clamp(2.5rem, 10vw, 5.5rem);
             line-height: 0.95;
             letter-spacing: -0.02em;
             color: var(--red-primary);
             text-transform: uppercase;
-            margin-bottom: 30px;
+            margin-bottom: 1.5rem;
             text-shadow: 0 4px 20px rgba(255, 59, 48, 0.3);
             animation: pulseGlow 3s ease-in-out infinite;
         }
@@ -127,16 +121,18 @@
         }
 
         .hero-text h2 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-size: clamp(1.25rem, 4vw, 2rem);
             font-weight: 400;
             color: var(--light-text);
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
             line-height: 1.3;
         }
 
         .pain-points {
             list-style: none;
-            margin: 30px 0;
+            margin: 2rem auto;
+            max-width: 500px;
+            text-align: left;
             animation: fadeIn 0.8s ease-out 0.3s both;
         }
 
@@ -146,8 +142,8 @@
         }
 
         .pain-points li {
-            font-size: 1.1rem;
-            padding: 12px 0 12px 35px;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            padding: 0.75rem 0 0.75rem 2rem;
             position: relative;
             color: var(--gray-text);
             transition: all 0.3s ease;
@@ -161,21 +157,22 @@
         .pain-points li::before {
             content: '•';
             position: absolute;
-            left: 10px;
+            left: 0.5rem;
             color: var(--red-primary);
             font-size: 1.5rem;
             line-height: 1;
         }
 
         .impact-statement {
-            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            font-size: clamp(1.15rem, 4vw, 1.8rem);
             font-weight: 700;
             color: var(--yellow-accent);
-            margin: 30px 0;
-            padding: 20px;
+            margin: 2rem auto;
+            padding: 1.25rem;
             background: rgba(255, 214, 10, 0.1);
             border-left: 4px solid var(--yellow-accent);
             animation: slideInRight 0.8s ease-out 0.5s both;
+            max-width: 600px;
         }
 
         @keyframes slideInRight {
@@ -189,10 +186,20 @@
             }
         }
 
+        .hero-text > p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: var(--gray-text);
+            line-height: 1.6;
+            margin-top: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         /* Form Section */
         .form-container {
             background: linear-gradient(135deg, var(--dark-bg) 0%, #2C2C2E 100%);
-            padding: 20px 40px;
+            padding: 2rem 1.5rem;
             border-radius: 20px;
             box-shadow: 
                 0 20px 60px rgba(0, 0, 0, 0.5),
@@ -232,31 +239,27 @@
 
         .form-title {
             font-family: 'Anton', sans-serif;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
             text-align: center;
             color: var(--yellow-accent);
             text-transform: uppercase;
             letter-spacing: 0.02em;
-            margin-bottom: 15px;
-            line-height: 1.2;
-            text-shadow: 0 2px 10px rgba(255, 214, 10, 0.3);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
         }
 
         .book-image {
             text-align: center;
-            margin-bottom: 5px;
-            animation: floatAnimation 3s ease-in-out infinite;
-        }
-
-        @keyframes floatAnimation {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            margin: 1.5rem auto;
+            padding: 0 1rem;
         }
 
         .book-image img {
-            max-width: 280px;
+            max-width: 100%;
             height: auto;
-            filter: drop-shadow(0 10px 30px rgba(255, 214, 10, 0.3));
+            max-height: 300px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease;
         }
 
@@ -266,125 +269,103 @@
 
         .form-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 2rem;
         }
 
         .form-header h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+            font-size: clamp(1.25rem, 4vw, 1.75rem);
             color: var(--light-text);
+            margin-bottom: 1rem;
         }
 
-        .subtitle {
-            font-size: 1rem;
+        .form-header .subtitle {
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
             color: var(--gray-text);
             line-height: 1.6;
         }
 
-        .highlight {
+        .form-header .highlight {
             color: var(--yellow-accent);
             font-weight: 700;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
             transition: transform 0.2s ease;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            font-size: 0.95rem;
             color: var(--light-text);
+            font-size: clamp(0.95rem, 2vw, 1rem);
         }
 
         .form-group input {
             width: 100%;
-            padding: 16px 20px;
-            font-size: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
             border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
             color: var(--light-text);
-            font-family: 'Archivo', sans-serif;
+            font-size: clamp(0.95rem, 2vw, 1rem);
             transition: all 0.3s ease;
         }
 
         .form-group input:focus {
             outline: none;
             border-color: var(--yellow-accent);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 4px rgba(255, 214, 10, 0.1);
-        }
-
-        .form-group input::placeholder {
-            color: var(--gray-text);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.1);
         }
 
         .submit-btn {
             width: 100%;
-            padding: 18px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
+            padding: 1.25rem;
+            background: linear-gradient(135deg, var(--red-primary) 0%, var(--red-dark) 100%);
             color: white;
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            font-weight: 700;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             cursor: pointer;
-            font-family: 'Archivo', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            position: relative;
-            overflow: hidden;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(255, 59, 48, 0.3);
         }
 
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .submit-btn:hover::before {
-            left: 100%;
-        }
-
-        .submit-btn:hover {
+        .submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(255, 59, 48, 0.4);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
+            box-shadow: 0 8px 20px rgba(255, 59, 48, 0.4);
         }
 
         .submit-btn:disabled {
-            opacity: 0.6;
+            opacity: 0.7;
             cursor: not-allowed;
         }
 
+        /* Trust Badges */
         .trust-badges {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 25px;
-            margin-top: 30px;
-            padding-top: 25px;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .badge {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            color: var(--gray-text);
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 214, 10, 0.1);
+            border-radius: 20px;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            color: var(--yellow-accent);
+            font-weight: 600;
         }
 
         .badge svg {
@@ -393,65 +374,12 @@
             fill: var(--yellow-accent);
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-content {
-                gap: 50px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                gap: 60px;
-            }
-
-            .hero-text h1 {
-                font-size: 3rem;
-            }
-
-            .impact-statement {
-                font-size: 1.2rem;
-            }
-
-            .form-container {
-                padding: 30px 20px;
-            }
-
-            .form-title {
-                font-size: 1.5rem;
-            }
-
-            .book-image img {
-                max-width: 220px;
-            }
-
-            .trust-badges {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        /* Success State */
+        /* Success Message */
         .success-message {
             display: none;
             text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(48, 209, 88, 0.1), rgba(48, 209, 88, 0.05));
-            border: 2px solid #30D158;
-            border-radius: 16px;
-            animation: successPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes successPop {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+            padding: 2rem 1rem;
+            animation: scaleIn 0.5s ease-out;
         }
 
         .success-message.show {
@@ -459,20 +387,20 @@
         }
 
         .success-message h3 {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 5vw, 2rem);
             color: #30D158;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
 
         .success-message p {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
             color: var(--light-text);
         }
 
         .checkmark {
             width: 80px;
             height: 80px;
-            margin: 0 auto 20px;
+            margin: 0 auto 1.5rem;
             fill: #30D158;
             animation: checkmarkDraw 0.8s ease-out;
         }
@@ -480,27 +408,26 @@
         @keyframes checkmarkDraw {
             0% {
                 opacity: 0;
-                transform: scale(0);
-                rotate: -180deg;
+                transform: scale(0) rotate(-180deg);
             }
             100% {
                 opacity: 1;
-                transform: scale(1);
-                rotate: 0deg;
+                transform: scale(1) rotate(0deg);
             }
         }
 
         /* Error State */
         .error-message {
             display: none;
-            padding: 15px;
-            margin-bottom: 20px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
             background: rgba(255, 59, 48, 0.1);
             border: 1px solid var(--red-primary);
             border-radius: 8px;
             color: var(--red-primary);
             text-align: center;
             animation: shake 0.5s ease;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .error-message.show {
@@ -511,6 +438,72 @@
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-10px); }
             75% { transform: translateX(10px); }
+        }
+
+        /* Desktop Layout */
+        @media (min-width: 900px) {
+            .hero-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+
+            .hero-text {
+                text-align: left;
+            }
+
+            .pain-points {
+                margin: 2rem 0;
+            }
+
+            .impact-statement {
+                margin: 2rem 0;
+            }
+
+            .hero-text > p {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .form-container {
+                padding: 2rem 2.5rem;
+            }
+        }
+
+        @media (max-width: 899px) {
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .book-image img {
+                max-height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 1.5rem 0;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .form-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .book-image img {
+                max-height: 200px;
+            }
+
+            .trust-badges {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .badge {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -532,7 +525,7 @@
                         Low open rates are killing your business.
                     </div>
 
-                    <p style="font-size: 1.2rem; color: var(--gray-text); line-height: 1.6; margin-top: 20px;">
+                    <p>
                         Download this free guide to learn how to write email subject lines that get <strong style="color: var(--yellow-accent);">noticed—and opened.</strong>
                     </p>
                 </div>
@@ -615,7 +608,7 @@
     </div>
 
     <script>
-        // Get form elements - THIS WAS MISSING!
+        // Get form elements
         const form = document.getElementById('leadForm');
         const successMessage = document.getElementById('successMessage');
         const errorMessage = document.getElementById('errorMessage');
