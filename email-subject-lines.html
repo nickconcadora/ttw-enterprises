@@ -608,49 +608,44 @@
 
     <script>
         // Form handling
-        const form = document.getElementById('leadForm');
-        const successMessage = document.getElementById('successMessage');
-
         form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const firstName = document.getElementById('firstName').value;
-            const email = document.getElementById('email').value;
-
-            // Simulate form submission (replace with actual API call)
-            console.log('Form submitted:', { firstName, email });
-
-            // Hide form and show success message
+    e.preventDefault();
+    
+    const firstName = document.getElementById('firstName').value;
+    const email = document.getElementById('email').value;
+    const submitBtn = document.querySelector('.submit-btn');
+    
+    submitBtn.innerHTML = '<span>Sending...</span>';
+    submitBtn.disabled = true;
+    
+    try {
+        // Call YOUR serverless function (not MailerLite directly)
+        const response = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                firstName: firstName,
+                email: email
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
             form.style.display = 'none';
             successMessage.classList.add('show');
-
-            // Optional: Reset form after delay
-            setTimeout(() => {
-                form.reset();
-            }, 1000);
-
-            // In production, you would send this data to your email service provider
-            // Example with fetch:
-            /*
-            try {
-                const response = await fetch('YOUR_API_ENDPOINT', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ firstName, email }),
-                });
-                
-                if (response.ok) {
-                    form.style.display = 'none';
-                    successMessage.classList.add('show');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Something went wrong. Please try again.');
-            }
-            */
-        });
+        } else {
+            throw new Error(data.error || 'Subscription failed');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Something went wrong. Please try again.');
+        submitBtn.innerHTML = '<span>Download Free Guide</span>';
+        submitBtn.disabled = false;
+    }
+});
 
         // Input animations
         const inputs = document.querySelectorAll('input');
