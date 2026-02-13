@@ -255,33 +255,30 @@
 
         .book-image img {
             max-width: 280px;
-            width: 100%;
             height: auto;
-            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 10px 30px rgba(255, 214, 10, 0.3));
+            transition: transform 0.3s ease;
         }
 
         .book-image img:hover {
-            transform: scale(1.05) rotate(-2deg);
-            filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8));
+            transform: scale(1.05);
         }
 
         .form-header {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         .form-header h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
             color: var(--light-text);
-            margin-bottom: 12px;
         }
 
         .subtitle {
             font-size: 1rem;
             color: var(--gray-text);
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .highlight {
@@ -289,66 +286,59 @@
             font-weight: 700;
         }
 
-        /* Form Styles */
-        #leadForm {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
         .form-group {
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
         }
 
-        label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--gray-text);
+        .form-group label {
+            display: block;
             margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input {
-            padding: 16px 18px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
             color: var(--light-text);
-            transition: all 0.3s ease;
-            font-family: 'Archivo', sans-serif;
         }
 
-        input:focus {
+        .form-group input {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light-text);
+            font-family: 'Archivo', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
             outline: none;
             border-color: var(--yellow-accent);
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.1);
+            box-shadow: 0 0 0 4px rgba(255, 214, 10, 0.1);
         }
 
-        input::placeholder {
+        .form-group input::placeholder {
             color: var(--gray-text);
         }
 
         .submit-btn {
-            margin-top: 10px;
-            padding: 18px 32px;
+            width: 100%;
+            padding: 18px;
             font-size: 1.1rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--red-primary) 0%, var(--red-dark) 100%);
+            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
             color: white;
             border: none;
             border-radius: 12px;
             cursor: pointer;
+            font-family: 'Archivo', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 30px rgba(255, 59, 48, 0.3);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 0.05em;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 59, 48, 0.3);
         }
 
         .submit-btn::before {
@@ -359,7 +349,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            transition: left 0.5s ease;
         }
 
         .submit-btn:hover::before {
@@ -367,47 +357,40 @@
         }
 
         .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 59, 48, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 59, 48, 0.4);
         }
 
         .submit-btn:active {
-            transform: translateY(-1px);
+            transform: translateY(0);
         }
 
-        /* Trust Badges */
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .trust-badges {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 25px;
             margin-top: 30px;
-            padding-top: 30px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .badge {
             display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 8px;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .badge:hover {
-            opacity: 1;
+            font-size: 0.9rem;
+            color: var(--gray-text);
         }
 
         .badge svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             fill: var(--yellow-accent);
-        }
-
-        .badge span {
-            font-size: 0.85rem;
-            color: var(--gray-text);
-            font-weight: 600;
         }
 
         /* Responsive */
@@ -506,6 +489,29 @@
                 rotate: 0deg;
             }
         }
+
+        /* Error State */
+        .error-message {
+            display: none;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid var(--red-primary);
+            border-radius: 8px;
+            color: var(--red-primary);
+            text-align: center;
+            animation: shake 0.5s ease;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
     </style>
 </head>
 <body>
@@ -543,6 +549,8 @@
                             Anyone Can Use To Skyrocket Email Open Rates
                         </p>
                     </div>
+
+                    <div class="error-message" id="errorMessage"></div>
 
                     <form id="leadForm">
                         <div class="form-group">
@@ -607,45 +615,63 @@
     </div>
 
     <script>
+        // Get form elements - THIS WAS MISSING!
+        const form = document.getElementById('leadForm');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        
         // Form handling
         form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const firstName = document.getElementById('firstName').value;
-    const email = document.getElementById('email').value;
-    const submitBtn = document.querySelector('.submit-btn');
-    
-    submitBtn.innerHTML = '<span>Sending...</span>';
-    submitBtn.disabled = true;
-    
-    try {
-        // Call YOUR serverless function (not MailerLite directly)
-        const response = await fetch('/api/subscribe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                firstName: firstName,
-                email: email
-            })
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const submitBtn = document.querySelector('.submit-btn');
+            
+            // Hide any previous errors
+            errorMessage.classList.remove('show');
+            
+            // Update button state
+            submitBtn.innerHTML = '<span>Sending...</span>';
+            submitBtn.disabled = true;
+            
+            try {
+                // Call YOUR serverless function
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName: firstName,
+                        email: email
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Success! Hide form and show success message
+                    form.style.display = 'none';
+                    successMessage.classList.add('show');
+                    
+                    // Optional: Log to console for debugging
+                    console.log('Subscription successful:', data);
+                } else {
+                    throw new Error(data.error || 'Subscription failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // Show error message
+                errorMessage.textContent = 'Something went wrong. Please try again.';
+                errorMessage.classList.add('show');
+                
+                // Reset button
+                submitBtn.innerHTML = '<span>Download Free Guide</span>';
+                submitBtn.disabled = false;
+            }
         });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-            form.style.display = 'none';
-            successMessage.classList.add('show');
-        } else {
-            throw new Error(data.error || 'Subscription failed');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Something went wrong. Please try again.');
-        submitBtn.innerHTML = '<span>Download Free Guide</span>';
-        submitBtn.disabled = false;
-    }
-});
 
         // Input animations
         const inputs = document.querySelectorAll('input');
@@ -659,6 +685,5 @@
             });
         });
     </script>
-    <script src="header.js"></script>
 </body>
 </html>
