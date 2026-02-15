@@ -8,6 +8,12 @@ export default async function handler(req, res) {
 
   const { firstName, email, recaptcha_token } = req.body;
 
+  // ⭐ DEBUG LOGS - OPTION 2
+  console.log('📥 Received request:', { firstName, email });
+  console.log('🔐 reCAPTCHA token received?', recaptcha_token ? 'YES' : 'NO');
+  console.log('🔐 Token preview:', recaptcha_token ? recaptcha_token.substring(0, 30) + '...' : 'NONE');
+  // ⭐ END DEBUG LOGS
+
   // Validate input
   if (!firstName || !email) {
     return res.status(400).json({ error: 'First name and email are required' });
@@ -25,9 +31,10 @@ export default async function handler(req, res) {
       const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
       
       if (!RECAPTCHA_SECRET_KEY) {
-        console.error('RECAPTCHA_SECRET_KEY not configured');
+        console.error('⚠️ RECAPTCHA_SECRET_KEY not configured');
         // Continue without blocking - you can make this stricter later
       } else {
+        console.log('🔍 Verifying reCAPTCHA...'); // ⭐ ADDED
         const verifyResponse = await fetch(
           `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${recaptcha_token}`,
           { method: 'POST' }
@@ -36,16 +43,18 @@ export default async function handler(req, res) {
         const verifyData = await verifyResponse.json();
         
         if (!verifyData.success || verifyData.score < 0.5) {
-          console.log('Bot detected:', verifyData);
+          console.log('❌ Bot detected:', verifyData); // ⭐ ADDED EMOJI
           return res.status(400).json({ error: 'Verification failed' });
         }
         
-        console.log('reCAPTCHA passed:', verifyData.score);
+        console.log('✅ reCAPTCHA passed! Score:', verifyData.score); // ⭐ ADDED EMOJI
       }
     } catch (error) {
-      console.error('reCAPTCHA verification error:', error);
+      console.error('⚠️ reCAPTCHA verification error:', error); // ⭐ ADDED EMOJI
       // Continue - don't block legitimate users if reCAPTCHA fails
     }
+  } else {
+    console.log('⚠️ No reCAPTCHA token provided in request'); // ⭐ ADDED
   }
   // ⭐ END OF NEW CODE
 
