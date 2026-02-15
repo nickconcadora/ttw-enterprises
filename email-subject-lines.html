@@ -602,6 +602,8 @@
                             <input type="email" id="email" name="email" placeholder="Enter your email address" required>
                         </div>
 
+                        <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+
                         <button type="submit" class="submit-btn">
                             <span>Download Free Guide</span>
                         </button>
@@ -642,77 +644,91 @@
         </div>
     </div>
 
-    <script>
-        // Get form elements
-        const form = document.getElementById('leadForm');
-        const successMessage = document.getElementById('successMessage');
-        const errorMessage = document.getElementById('errorMessage');
-
-        // Form handling
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const firstName = document.getElementById('firstName').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const submitBtn = document.querySelector('.submit-btn');
-
-            // Hide any previous errors
-            errorMessage.classList.remove('show');
-
-            // Update button state
-            submitBtn.innerHTML = '<span>Sending...</span>';
-            submitBtn.disabled = true;
-
-            try {
-                // Call YOUR serverless function
-                const response = await fetch('/api/subscribe', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        firstName: firstName,
-                        email: email
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    // Success! Hide form and show success message
-                    form.style.display = 'none';
-                    successMessage.classList.add('show');
-
-                    // Optional: Log to console for debugging
-                    console.log('Subscription successful:', data);
-                } else {
-                    throw new Error(data.error || 'Subscription failed');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-
-                // Show error message
-                errorMessage.textContent = 'Something went wrong. Please try again.';
-                errorMessage.classList.add('show');
-
-                // Reset button
-                submitBtn.innerHTML = '<span>Download Free Guide</span>';
-                submitBtn.disabled = false;
+<script>
+    // Get form elements
+    const form = document.getElementById('leadForm');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    // Form handling
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const firstName = document.getElementById('firstName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const submitBtn = document.querySelector('.submit-btn');
+        
+        // Hide any previous errors
+        errorMessage.classList.remove('show');
+        
+        // Update button state
+        submitBtn.innerHTML = '<span>Sending...</span>';
+        submitBtn.disabled = true;
+        
+        // ⭐ NEW: Get reCAPTCHA token
+        let recaptchaToken;
+        try {
+            recaptchaToken = await grecaptcha.execute('6LeF7GwsAAAAAMKTy55McIfybM1TvwruOv0TXYtE', { action: 'submit' });
+        } catch (error) {
+            console.error('reCAPTCHA error:', error);
+            errorMessage.textContent = 'Verification failed. Please refresh and try again.';
+            errorMessage.classList.add('show');
+            submitBtn.innerHTML = '<span>Download Free Guide</span>';
+            submitBtn.disabled = false;
+            return;
+        }
+        
+        try {
+            // Call YOUR serverless function
+            const response = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName: firstName,
+                    email: email,
+                    recaptcha_token: recaptchaToken  // ⭐ NEW: Send token to backend
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Success! Hide form and show success message
+                form.style.display = 'none';
+                successMessage.classList.add('show');
+                
+                // Optional: Log to console for debugging
+                console.log('Subscription successful:', data);
+            } else {
+                throw new Error(data.error || 'Subscription failed');
             }
+        } catch (error) {
+            console.error('Error:', error);
+            
+            // Show error message
+            errorMessage.textContent = 'Something went wrong. Please try again.';
+            errorMessage.classList.add('show');
+            
+            // Reset button
+            submitBtn.innerHTML = '<span>Download Free Guide</span>';
+            submitBtn.disabled = false;
+        }
+    });
+    
+    // Input animations
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function () {
+            this.parentElement.style.transform = 'scale(1.01)';
         });
-
-        // Input animations
-        const inputs = document.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.addEventListener('focus', function () {
-                this.parentElement.style.transform = 'scale(1.01)';
-            });
-
-            input.addEventListener('blur', function () {
-                this.parentElement.style.transform = 'scale(1)';
-            });
+        
+        input.addEventListener('blur', function () {
+            this.parentElement.style.transform = 'scale(1)';
         });
-    </script>
+    });
+</script>
     <script src="header.js"></script>
 </body>
 
