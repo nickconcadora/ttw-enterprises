@@ -1,13 +1,12 @@
 // api/subscribe.js
 // Place this file in your /api folder in your Vercel project
-
 export default async function handler(req, res) {
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { firstName, email } = req.body;
+  const { firstName, email, recaptcha_token } = req.body;
 
   // Validate input
   if (!firstName || !email) {
@@ -20,31 +19,58 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid email format' });
   }
 
+  // ⭐ NEW: Verify reCAPTCHA token
+  if (recaptcha_token) {
+    try {
+      const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
+      
+      if (!RECAPTCHA_SECRET_KEY) {
+        console.error('RECAPTCHA_SECRET_KEY not configured');
+        // Continue without blocking - you can make this stricter later
+      } else {
+        const verifyResponse = await fetch(
+          `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${recaptcha_token}`,
+          { method: 'POST' }
+        );
+        
+        const verifyData = await verifyResponse.json();
+        
+        if (!verifyData.success || verifyData.score < 0.5) {
+          console.log('Bot detected:', verifyData);
+          return res.status(400).json({ error: 'Verification failed' });
+        }
+        
+        console.log('reCAPTCHA passed:', verifyData.score);
+      }
+    } catch (error) {
+      console.error('reCAPTCHA verification error:', error);
+      // Continue - don't block legitimate users if reCAPTCHA fails
+    }
+  }
+  // ⭐ END OF NEW CODE
+
   try {
     // MailerLite API configuration
     const MAILERLITE_API_KEY = process.env.MAILERLITE_API_KEY;
-    const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID; // Your group ID
+    const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID;
     
     if (!MAILERLITE_API_KEY) {
       console.error('MAILERLITE_API_KEY not configured');
       return res.status(500).json({ error: 'Server configuration error' });
     }
-
     if (!MAILERLITE_GROUP_ID) {
       console.error('MAILERLITE_GROUP_ID not configured');
       return res.status(500).json({ error: 'Server configuration error' });
     }
 
-    // MailerLite API endpoint - Using the NEW API v2
     const apiUrl = `https://connect.mailerlite.com/api/subscribers`;
-
     const subscriberData = {
       email: email,
       fields: {
         name: firstName
       },
-      groups: [MAILERLITE_GROUP_ID], // This assigns to your group AND triggers automation
-      status: 'active' // Make sure they're active
+      groups: [MAILERLITE_GROUP_ID],
+      status: 'active'
     };
 
     console.log('Sending to MailerLite:', { email, firstName, groupId: MAILERLITE_GROUP_ID });
@@ -64,9 +90,7 @@ export default async function handler(req, res) {
     if (!response.ok) {
       console.error('MailerLite error:', responseData);
       
-      // Check if subscriber already exists
       if (response.status === 422 || responseData.message?.includes('already exists')) {
-        // Try to update existing subscriber and add to group
         const updateUrl = `https://connect.mailerlite.com/api/subscribers/${email}`;
         
         const updateResponse = await fetch(updateUrl, {
@@ -103,7 +127,6 @@ export default async function handler(req, res) {
     }
 
     console.log('MailerLite success:', responseData);
-
     return res.status(200).json({ 
       success: true, 
       message: 'Subscription successful',
